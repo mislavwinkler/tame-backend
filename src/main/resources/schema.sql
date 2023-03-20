@@ -30,6 +30,7 @@ create table if not exists comment (
     text varchar(600),
     post_id bigint not null,
     user_id bigint not null,
+    creation_date date not null,
     constraint fk_post_comment foreign key (post_id) references post(id) on delete cascade,
     constraint fk_user_comment foreign key (user_id) references users(id) on delete cascade
     );
@@ -44,4 +45,11 @@ create table if not exists user_has_authority (
     authority_id bigint not null,
     constraint fk_user foreign key (user_id) references users(id) on delete cascade,
     constraint fk_authority foreign key (authority_id) references authority(id) on delete cascade
+    );
+
+create table if not exists user_has_following (
+    user_id bigint not null,
+    folowing_id bigint not null,
+    constraint fk_user_that_follows foreign key (user_id) references users(id) on delete cascade,
+    constraint fk_user_that_is_followed foreign key (folowing_id) references users(id) on delete cascade
     );
