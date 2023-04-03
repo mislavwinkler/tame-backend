@@ -12,9 +12,13 @@ public interface AuthenticationService {
 
     List<UserDTO> findAll();
 
+    Optional<UserDTO> findByUsername(String username);
+
     Optional<LoginDTO> login(LoginCommand command);
 
     Optional<UserDTO> save(RegisterCommand command);
 
     void delete(String username);
+
+    void follow(String username, String followingUsername);
 }

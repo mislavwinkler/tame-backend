@@ -54,7 +54,7 @@ public class User {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "USER_HAS_FOLOWING",
+            name = "USER_HAS_FOLLOWING",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "following_id", referencedColumnName = "id")}
     )
@@ -70,22 +70,7 @@ public class User {
         this.email = email;
     }
 
-    public User(Long id, String username, String password, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
-    public User(Long id, String username, String password, String email, Set<Authority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.authorities = authorities;
-    }
-
-    public User(Long id, String username, String password, String email, String firstname, String lastname, Date dateOfBirth, Date dateOfRegistration, String profilePicture, Set<Authority> authorities) {
+    public User(Long id, String username, String password, String email, String firstname, String lastname, Date dateOfBirth, Date dateOfRegistration, String profilePicture) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -95,7 +80,17 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.dateOfRegistration = dateOfRegistration;
         this.profilePicture = profilePicture;
-        this.authorities = authorities;
+    }
+
+    public User(String username, String password, String email, String firstname, String lastname, Date dateOfBirth, Date dateOfRegistration, String profilePicture) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfRegistration = dateOfRegistration;
+        this.profilePicture = profilePicture;
     }
 
     public Long getId() { return id; }

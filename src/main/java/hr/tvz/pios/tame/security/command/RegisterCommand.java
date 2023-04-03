@@ -2,6 +2,7 @@ package hr.tvz.pios.tame.security.command;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 public class RegisterCommand {
 
@@ -15,6 +16,14 @@ public class RegisterCommand {
     @NotBlank(message = "Email is mandatory")
     private String email;
 
+    private String firstname;
+
+    private String lastname;
+
+    private Date dateOfBirth;
+
+    private String profilePicture;
+
     public String getUsername() {
         return username;
     }
@@ -24,4 +33,12 @@ public class RegisterCommand {
     }
 
     public String getEmail() {return email;}
+
+    public String getFirstname() { return firstname; }
+
+    public String getLastname() { return lastname; }
+
+    public Date getDateOfBirth() { return dateOfBirth; }
+
+    public String getProfilePicture() { return profilePicture; }
 }

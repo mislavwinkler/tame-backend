@@ -16,4 +16,6 @@ public interface UserRepository {
     void delete(String username);
 
     Optional<User> findById(Long id);
+
+    void follow(String username, String followingUsername);
 }

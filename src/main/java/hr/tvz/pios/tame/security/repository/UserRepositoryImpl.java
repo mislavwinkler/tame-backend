@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
                 .withTableName("users")
                 .usingGeneratedKeyColumns("id");
         this.inserterAuthority = new SimpleJdbcInsert(jdbc)
-                .withTableName("user_authority");
+                .withTableName("user_has_authority");
     }
 
     @Override
@@ -77,13 +77,24 @@ public class UserRepositoryImpl implements UserRepository {
         jdbc.update("DELETE FROM users WHERE username = ?", username);
     }
 
+    @Override
+    public void follow(String username, String followingUsername) {
+        jdbc.update("INSERT INTO user_has_following(user_id, following_id) VALUES (?, ?)",
+                findByUsername(username).orElse(null).getId(),
+                findByUsername(followingUsername).orElse(null).getId());
+    }
 
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
         return new User(
                 rs.getLong("id"),
                 rs.getString("username"),
                 rs.getString("password"),
-                rs.getString("email")
+                rs.getString("email"),
+                rs.getString("firstname"),
+                rs.getString("lastname"),
+                rs.getDate("birth_date"),
+                rs.getDate("registration_date"),
+                rs.getString("profile_picture")
         );
     }
 
@@ -93,12 +104,16 @@ public class UserRepositoryImpl implements UserRepository {
         values.put("username", user.getUsername());
         values.put("password", user.getPassword());
         values.put("email", user.getEmail());
+        values.put("firstname", user.getFirstname());
+        values.put("lastname", user.getLastname());
+        values.put("birth_date", user.getDateOfBirth());
+        values.put("registration_date", user.getDateOfRegistration());
+        values.put("profile_picture", user.getProfilePicture());
+
         Number key = inserter.executeAndReturnKey(values);
         inserterAuthority.execute(new HashMap<>(){{put("user_id", key); put("authority_id", 2);}});
 
         return key.toString();
     }
-
-
 
 }

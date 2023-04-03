@@ -26,7 +26,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static final List<String> UNAUTHENTICATED_ENDPOINTS = List.of(
             "/authentication/login",
             "/registration",
-            "/question-photos/**",
             "/h2-console/**"
     );
 
