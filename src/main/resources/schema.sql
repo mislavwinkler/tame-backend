@@ -49,7 +49,7 @@ create table if not exists user_has_authority (
 
 create table if not exists user_has_following (
     user_id bigint not null,
-    folowing_id bigint not null,
+    following_id bigint not null,
     constraint fk_user_that_follows foreign key (user_id) references users(id) on delete cascade,
-    constraint fk_user_that_is_followed foreign key (folowing_id) references users(id) on delete cascade
+    constraint fk_user_that_is_followed foreign key (following_id) references users(id) on delete cascade
     );
