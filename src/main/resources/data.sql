@@ -5,7 +5,7 @@ insert into users(username, password, email, firstname, lastname)
 values
     ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com', 'Admin', 'Profile'), -- password = admin
     ('jtovernic', '$2a$10$XFUr05lCQIGrKVfqkEeQPeE1Ckht7WeTdjAvQy0/17wWugO0Qzqca', 'jtovernic@tvz.com', 'Jan', 'Tovernić'), -- password = jan1234
-    ('mblazekobic', '$2a$10$BeYCwXAcb4J4MQVLAlGEWehps3TAiY.yR8HuGIEmsUL4YjJO17Mu2', 'mblazekobic@tvz.com', 'Martin ', 'Blažeković'), -- password = martin123
+    ('mblazekovic', '$2a$10$BeYCwXAcb4J4MQVLAlGEWehps3TAiY.yR8HuGIEmsUL4YjJO17Mu2', 'mblazekovic@tvz.com', 'Martin ', 'Blažeković'), -- password = martin123
     ('lcrepak', '$2a$10$5HjelJMuiXig3Is0CficEOSUCMgNRzRD3crW4Xzx5V1XGQdI596ni', 'lcrepak@tvz.com', 'Lea ', 'Črepak'), -- password = lea123
     ('mwinkler', '$2a$12$XwLlBuU73fyu9L0pmcFuc.SJClgjCHQ7Ve8lVeNZt4RlHQBN.afku', 'mwinkler@tvz.com', 'Mislav', 'Winkler'), -- password = mislav123
     ('test', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'test@email.com', 'Test', 'Profile'); -- password = admin

@@ -21,7 +21,6 @@ public class PostControllerTest {
 
     @Test
     void getAllPost() throws Exception {
-
         this.mockMvc.perform(
                         get("/post")
                                 .with(user("admin")
