@@ -18,26 +18,26 @@ public class CommentController {
     public CommentController(CommentService commentService) { this.commentService = commentService; }
 
     @GetMapping
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public List<CommentDTO> getAllComments() {
         return commentService.findAll();
     }
 
     @GetMapping("/{postId}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<CommentDTO> getCommentsByPostId(@PathVariable final Long postId) {
         return commentService.findCommentsByPostId(postId);
     }
 
     @GetMapping("/id={id}")
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<CommentDTO> getCommentById(@PathVariable final Long id) {
         return commentService.findById(id).map(ResponseEntity::ok).orElseGet(
                 () -> ResponseEntity.notFound().build()
         );
     }
     @PostMapping
-    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<CommentDTO> save(@Valid @RequestBody final CommentCommand commentCommand){
         return commentService.save(commentCommand)
                 .map(CommentDTO -> ResponseEntity.status(HttpStatus.CREATED)
@@ -50,7 +50,7 @@ public class CommentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    @Secured({"ROLE_USER","ROLE_ADMIN"})
+    //@Secured({"ROLE_USER","ROLE_ADMIN"})
     public void delete (@PathVariable Long id){
         commentService.delete(id);
     }

@@ -54,7 +54,7 @@ public class User {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "USER_HAS_FOLLOWING",
+            name = "USER_IS_FOLLOWING",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "following_id", referencedColumnName = "id")}
     )
@@ -68,6 +68,15 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public User(String username, String email, String firstname, String lastname, Date dateOfBirth, String profilePicture) {
+        this.username = username;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dateOfBirth = dateOfBirth;
+        this.profilePicture = profilePicture;
     }
 
     public User(Long id, String username, String password, String email, String firstname, String lastname, Date dateOfBirth, Date dateOfRegistration, String profilePicture) {

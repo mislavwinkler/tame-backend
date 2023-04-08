@@ -1,5 +1,6 @@
 package hr.tvz.pios.tame.post;
 
+import hr.tvz.pios.tame.security.domain.User;
 import hr.tvz.pios.tame.security.repository.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
@@ -75,6 +76,14 @@ public class PostRepository implements PostRepositoryInterface{
     @Override
     public void like(Long postId, String username) {
         jdbc.update("INSERT INTO post_has_likes(post_id, user_id) VALUES (?, ?)", postId, userRepository.findByUsername(username).orElse(null).getId());
+    }
+
+    @Override
+    public List<Post> findPostsByFollowedUsers(String username) {
+        return List.copyOf(jdbc.query(SELECT_ALL+
+                " JOIN user_is_following uf ON uf.following_id = post.user_id" +
+                " WHERE uf.user_id = ?",
+                this::mapRowToPost, userRepository.findByUsername(username).orElse(null).getId()));
     }
 
     private Post mapRowToPost(ResultSet rs, int rowNum) throws SQLException {

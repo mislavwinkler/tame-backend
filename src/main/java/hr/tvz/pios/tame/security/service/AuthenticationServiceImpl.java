@@ -2,6 +2,7 @@ package hr.tvz.pios.tame.security.service;
 
 import hr.tvz.pios.tame.security.command.LoginCommand;
 import hr.tvz.pios.tame.security.command.RegisterCommand;
+import hr.tvz.pios.tame.security.command.UserCommand;
 import hr.tvz.pios.tame.security.domain.User;
 import hr.tvz.pios.tame.security.dto.LoginDTO;
 import hr.tvz.pios.tame.security.dto.UserDTO;
@@ -76,6 +77,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public void follow(String username, String followingUsername) {
         userRepository.follow(username, followingUsername);
+    }
+
+    @Override
+    public List<UserDTO> findUsersThatUserFollows(String username) {
+        return userRepository.findUsersThatUserFollows(username).stream().map(this::mapUserToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> findUsersThatFollowUser(String username) {
+        return userRepository.findUsersThatFollowUser(username).stream().map(this::mapUserToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> findUserThatLikedPostById(Long id) {
+        return userRepository.findUserThatLikedPostById(id).stream().map(this::mapUserToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<UserDTO> update(Long id, UserCommand userCommand) {
+        return userRepository.update(id, mapUserCommandToUser(userCommand)).
+                map(this::mapUserToDTO);
+    }
+
+    private User mapUserCommandToUser(UserCommand userCommand) {
+        return new User(
+                userCommand.getUsername(),
+                userCommand.getEmail(),
+                userCommand.getFirstname(),
+                userCommand.getLastname(),
+                userCommand.getDateOfBirth(),
+                userCommand.getProfilePicture()
+        );
     }
 
     private User mapRegisterCommandToUser(RegisterCommand registerCommand) {

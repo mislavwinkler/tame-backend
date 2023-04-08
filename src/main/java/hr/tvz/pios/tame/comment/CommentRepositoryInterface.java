@@ -11,7 +11,7 @@ public interface CommentRepositoryInterface {
 
     List<Comment> findCommentsByPostId(Long postId);
 
-    Optional<Comment> save(Comment answer);
+    Optional<Comment> save(Comment comment);
 
     void delete(Long id);
 }

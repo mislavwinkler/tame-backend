@@ -15,7 +15,7 @@ public class CommentCommand {
     @NotNull (message = "Comment must belong to a post")
     private Long postId;
 
-    @NotNull (message = "Answer must belong to a user")
+    @NotNull (message = "Comment must belong to a user")
     private String makerUsername;
 
     @NotNull(message = "Date od creation is mandatory")

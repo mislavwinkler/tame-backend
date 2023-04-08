@@ -48,6 +48,11 @@ public class PostService implements PostServiceInterface{
         postRepository.like(postId, username);
     }
 
+    @Override
+    public List<PostDTO> findPostsByFollowedUsers(String username) {
+        return postRepository.findPostsByFollowedUsers(username).stream().map(this::mapPostToDTO).collect(Collectors.toList());
+    }
+
     private PostDTO mapPostToDTO(final Post post) {
         return new PostDTO(post.getId(), post.getText(), post.getCreationDate(), post.getMaker().getUsername());
     }

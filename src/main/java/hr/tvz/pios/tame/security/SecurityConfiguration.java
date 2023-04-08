@@ -26,7 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static final List<String> UNAUTHENTICATED_ENDPOINTS = List.of(
             "/authentication/login",
             "/registration",
-            "/h2-console/**"
+            "/h2-console/**",
+            "/**"
     );
 
     private final JwtFilter jwtFilter;

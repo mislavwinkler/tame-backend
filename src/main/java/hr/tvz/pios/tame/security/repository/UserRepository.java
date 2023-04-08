@@ -18,4 +18,12 @@ public interface UserRepository {
     Optional<User> findById(Long id);
 
     void follow(String username, String followingUsername);
+
+    List<User> findUsersThatUserFollows(String username);
+
+    List<User> findUsersThatFollowUser(String username);
+
+    List<User> findUserThatLikedPostById(Long id);
+
+    Optional<User> update(Long id, User updatedUser);
 }

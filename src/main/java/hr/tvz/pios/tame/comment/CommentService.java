@@ -38,7 +38,7 @@ public class CommentService implements CommentServiceInterface{
 
     @Override
     public Optional<CommentDTO> save(CommentCommand commentCommand) {
-        return commentRepository.save(mapCommentCommandToQuestion(commentCommand))
+        return commentRepository.save(mapCommentCommandToComment(commentCommand))
                 .map(this::mapCommentToDTO);
     }
 
@@ -51,7 +51,7 @@ public class CommentService implements CommentServiceInterface{
         return new CommentDTO(comment.getId(), comment.getText(), comment.getPost().getId(), comment.getMaker().getUsername());
     }
 
-    private Comment mapCommentCommandToQuestion(CommentCommand commentCommand) {
+    private Comment mapCommentCommandToComment(CommentCommand commentCommand) {
         return new Comment(commentCommand.getId(), commentCommand.getText(),
                 userRepository.findByUsername(commentCommand.getMakerUsername()).get(),
                 postRepository.findById(commentCommand.getPostId()).get(),

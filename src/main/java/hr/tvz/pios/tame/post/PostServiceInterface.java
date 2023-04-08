@@ -16,4 +16,6 @@ public interface PostServiceInterface {
     void delete(Long id);
 
     void like(Long postId, String username);
+
+    List<PostDTO> findPostsByFollowedUsers(String username);
 }

@@ -2,6 +2,8 @@ package hr.tvz.pios.tame.security.service;
 
 import hr.tvz.pios.tame.security.command.LoginCommand;
 import hr.tvz.pios.tame.security.command.RegisterCommand;
+import hr.tvz.pios.tame.security.command.UserCommand;
+import hr.tvz.pios.tame.security.domain.User;
 import hr.tvz.pios.tame.security.dto.LoginDTO;
 import hr.tvz.pios.tame.security.dto.UserDTO;
 
@@ -21,4 +23,12 @@ public interface AuthenticationService {
     void delete(String username);
 
     void follow(String username, String followingUsername);
+
+    List<UserDTO> findUsersThatUserFollows(String username);
+
+    List<UserDTO> findUsersThatFollowUser(String username);
+
+    List<UserDTO> findUserThatLikedPostById(Long id);
+
+    Optional<UserDTO> update(Long id, UserCommand userCommand);
 }

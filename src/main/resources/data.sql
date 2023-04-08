@@ -34,3 +34,16 @@ values
     (1, 'Ovo je prvi probni komentar drugog korisnika na prvu probnu objavu', 1, 2, '2023-04-01'),
     (2, 'Ovo je drugi probni komentar na prvu probnu objavu', 1, 1, '2023-04-01'),
     (3, 'Ovo je prvi probni komentar na drugu probnu objavu', 2, 1, '2023-04-02');
+
+insert into user_is_following (user_id, following_id)
+values
+    (5, 1),
+    (5, 2),
+    (4, 5),
+    (3, 5);
+
+insert into post_has_likes (post_id, user_id)
+values
+    (3, 5),
+    (3, 3),
+    (1, 4);

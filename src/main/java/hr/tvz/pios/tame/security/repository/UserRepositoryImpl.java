@@ -79,9 +79,61 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void follow(String username, String followingUsername) {
-        jdbc.update("INSERT INTO user_has_following(user_id, following_id) VALUES (?, ?)",
+        jdbc.update("INSERT INTO user_is_following(user_id, following_id) VALUES (?, ?)",
                 findByUsername(username).orElse(null).getId(),
                 findByUsername(followingUsername).orElse(null).getId());
+    }
+
+    @Override
+    public List<User> findUsersThatUserFollows(String username) {
+        return List.copyOf(jdbc.query(SELECT_ALL + " foll" +
+                " JOIN user_is_following ON following_id = foll.id" +
+                " JOIN users usr ON user_id = usr.id" +
+                " WHERE usr.username = ?",
+                this::mapRowToUser, username));
+    }
+
+    @Override
+    public List<User> findUsersThatFollowUser(String username) {
+        return List.copyOf(jdbc.query(SELECT_ALL + " usr" +
+                " JOIN user_is_following ON user_id = usr.id" +
+                " JOIN users foll ON following_id = foll.id" +
+                " WHERE foll.username = ?",
+                this::mapRowToUser, username));
+    }
+
+    @Override
+    public List<User> findUserThatLikedPostById(Long id) {
+        return List.copyOf(jdbc.query(SELECT_ALL +
+                " JOIN post_has_likes uf ON user_id = users.id" +
+                " WHERE post_id = ?"
+                , this::mapRowToUser, id));
+    }
+
+    @Override
+    public Optional<User> update(Long id, User updatedUser) {
+        int executed = jdbc.update("UPDATE users " +
+                        "SET users.username = ?, " +
+                        "users.email = ?, " +
+                        "users.firstname = ?, " +
+                        "users.lastname = ?, " +
+                        "users.birth_date = ?, " +
+                        "users.profile_picture = ? " +
+                        "WHERE users.id = ?",
+                updatedUser.getUsername(),
+                updatedUser.getEmail(),
+                updatedUser.getFirstname(),
+                updatedUser.getLastname(),
+                updatedUser.getDateOfBirth(),
+                updatedUser.getProfilePicture(),
+                id
+        );
+
+        if(executed > 0){
+            return Optional.of(updatedUser);
+        } else {
+            return Optional.empty();
+        }
     }
 
     private User mapRowToUser(ResultSet rs, int rowNum) throws SQLException {
