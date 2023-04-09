@@ -18,6 +18,7 @@ public interface UserRepository {
     Optional<User> findById(Long id);
 
     void follow(String username, String followingUsername);
+    void unfollow(String username, String followingUsername);
 
     List<User> findUsersThatUserFollows(String username);
 

@@ -25,25 +25,38 @@ values
 
 insert into post (id, text, creation_date, user_id)
 values
-    (1, 'Ovo je prva probna objava', '2023-04-01', 1),
-    (2, 'Ovo je druga probna objava', '2023-04-02', 1),
-    (3, 'Ovo je prva objava drugog korisnika', '2023-03-25', 2);
+    (1, 'Bok svima, moje ime je Jan!!', '2023-04-01', 2),
+    (2, 'Danas je lijep dan', '2023-04-02', 3),
+    (3, 'Inače sam tester za ovu aplikaciju', '2023-03-25', 4),
+    (4, 'Laku noć svima!', '2023-03-23', 5);
 
 insert into comment (id, text, post_id, user_id, creation_date)
 values
-    (1, 'Ovo je prvi probni komentar drugog korisnika na prvu probnu objavu', 1, 2, '2023-04-01'),
-    (2, 'Ovo je drugi probni komentar na prvu probnu objavu', 1, 1, '2023-04-01'),
-    (3, 'Ovo je prvi probni komentar na drugu probnu objavu', 2, 1, '2023-04-02');
+    (1, 'Bok Jan, ja sam Martin!', 1, 3, '2023-04-01'),
+    (2, 'A ja sam programer', 3, 5, '2023-04-01'),
+    (3, 'Lkn', 4, 1, '2023-04-02');
 
 insert into user_is_following (user_id, following_id)
 values
-    (5, 1),
+    (3, 2),
+    (4, 2),
     (5, 2),
-    (4, 5),
-    (3, 5);
+    (2, 3),
+    (4, 3),
+    (5, 3),
+    (2, 4),
+    (3, 4),
+    (5, 4),
+    (2, 5),
+    (3, 5),
+    (4, 5);
 
 insert into post_has_likes (post_id, user_id)
 values
-    (3, 5),
+    (1, 3),
+    (1, 4),
+    (1, 5),
+    (2, 5),
+    (3, 2),
     (3, 3),
-    (1, 4);
+    (4, 2);

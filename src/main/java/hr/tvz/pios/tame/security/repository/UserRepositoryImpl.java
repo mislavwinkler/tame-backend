@@ -85,6 +85,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void unfollow(String username, String followingUsername) {
+        jdbc.update("DELETE FROM user_is_following WHERE user_id = ? AND following_id = ?",
+                findByUsername(username).orElse(null).getId(),
+                findByUsername(followingUsername).orElse(null).getId());
+    }
+
+    @Override
     public List<User> findUsersThatUserFollows(String username) {
         return List.copyOf(jdbc.query(SELECT_ALL + " foll" +
                 " JOIN user_is_following ON following_id = foll.id" +

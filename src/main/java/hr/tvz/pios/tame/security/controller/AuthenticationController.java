@@ -59,6 +59,12 @@ public class AuthenticationController {
     public void follow (@PathVariable String username, @PathVariable String followingUsername){authenticationService.follow(username, followingUsername);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{username}/{followingUsername}")
+    //@Secured({"ROLE_USER","ROLE_ADMIN"})
+    public void unfollow (@PathVariable String username, @PathVariable String followingUsername){authenticationService.unfollow(username, followingUsername);
+    }
+
     @GetMapping("/follows/{username}")
     //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<UserDTO> getUsersThatUserFollows(@PathVariable final String username){

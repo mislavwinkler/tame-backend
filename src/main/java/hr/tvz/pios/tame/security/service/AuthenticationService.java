@@ -24,6 +24,8 @@ public interface AuthenticationService {
 
     void follow(String username, String followingUsername);
 
+    void unfollow(String username, String followingUsername);
+
     List<UserDTO> findUsersThatUserFollows(String username);
 
     List<UserDTO> findUsersThatFollowUser(String username);

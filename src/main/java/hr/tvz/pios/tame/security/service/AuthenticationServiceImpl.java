@@ -79,6 +79,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userRepository.follow(username, followingUsername);
     }
 
+    public void unfollow(String username, String followingUsername) {
+        userRepository.unfollow(username, followingUsername);
+    }
+
     @Override
     public List<UserDTO> findUsersThatUserFollows(String username) {
         return userRepository.findUsersThatUserFollows(username).stream().map(this::mapUserToDTO).collect(Collectors.toList());
