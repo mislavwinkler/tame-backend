@@ -71,10 +71,7 @@ public class CommentRepository implements CommentRepositoryInterface{
     }
 
     @Override
-    public void delete(Long id) {
-        jdbc.update("DELETE comment FROM comment " +
-                "WHERE id = ?", id);
-    }
+    public void delete(Long id) { jdbc.update("DELETE FROM comment WHERE id = ?", id); }
 
     private Comment mapRowToComment(ResultSet rs, int rowNum) throws SQLException {
         return new Comment(
