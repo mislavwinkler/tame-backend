@@ -26,5 +26,5 @@ public interface UserRepository {
 
     List<User> findUserThatLikedPostById(Long id);
 
-    Optional<User> update(Long id, User updatedUser);
+    Optional<User> update(String username, User updatedUser);
 }

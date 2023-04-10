@@ -99,8 +99,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Optional<UserDTO> update(Long id, UserCommand userCommand) {
-        return userRepository.update(id, mapUserCommandToUser(userCommand)).
+    public Optional<UserDTO> update(String username, UserCommand userCommand) {
+        return userRepository.update(username, mapUserCommandToUser(userCommand)).
                 map(this::mapUserToDTO);
     }
 

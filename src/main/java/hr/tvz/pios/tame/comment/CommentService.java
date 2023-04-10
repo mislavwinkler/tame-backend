@@ -4,6 +4,7 @@ import hr.tvz.pios.tame.post.PostRepository;
 import hr.tvz.pios.tame.security.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,9 +53,9 @@ public class CommentService implements CommentServiceInterface{
     }
 
     private Comment mapCommentCommandToComment(CommentCommand commentCommand) {
-        return new Comment(commentCommand.getId(), commentCommand.getText(),
+        return new Comment(commentCommand.getText(),
                 userRepository.findByUsername(commentCommand.getMakerUsername()).get(),
                 postRepository.findById(commentCommand.getPostId()).get(),
-                commentCommand.getCreationDate());
+                new Date(System.currentTimeMillis()));
     }
 }

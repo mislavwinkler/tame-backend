@@ -23,18 +23,18 @@ values
     (4, 2),
     (5, 2);
 
-insert into post (id, text, creation_date, user_id)
+insert into post (text, creation_date, user_id)
 values
-    (1, 'Bok svima, moje ime je Jan!!', '2023-04-01', 2),
-    (2, 'Danas je lijep dan', '2023-04-02', 3),
-    (3, 'Inače sam tester za ovu aplikaciju', '2023-03-25', 4),
-    (4, 'Laku noć svima!', '2023-03-23', 5);
+    ('Bok svima, moje ime je Jan!!', '2023-04-01', 2),
+    ('Danas je lijep dan', '2023-04-02', 3),
+    ('Inače sam tester za ovu aplikaciju', '2023-03-25', 4),
+    ('Laku noć svima!', '2023-03-23', 5);
 
-insert into comment (id, text, post_id, user_id, creation_date)
+insert into comment (text, post_id, user_id, creation_date)
 values
-    (1, 'Bok Jan, ja sam Martin!', 1, 3, '2023-04-01'),
-    (2, 'A ja sam programer', 3, 5, '2023-04-01'),
-    (3, 'Lkn', 4, 1, '2023-04-02');
+    ('Bok Jan, ja sam Martin!', 1, 3, '2023-04-01'),
+    ('A ja sam programer', 3, 5, '2023-04-01'),
+    ('Lkn', 4, 1, '2023-04-02');
 
 insert into user_is_following (user_id, following_id)
 values

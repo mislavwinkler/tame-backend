@@ -59,6 +59,6 @@ public class PostService implements PostServiceInterface{
 
     private Post mapPostCommandToPost(PostCommand postCommand) {
         return new Post(postCommand.getText(),
-                userRepository.findByUsername(postCommand.getMakerName()).orElse(null));
+                userRepository.findByUsername(postCommand.getMakerUsername()).orElse(null));
     }
 }

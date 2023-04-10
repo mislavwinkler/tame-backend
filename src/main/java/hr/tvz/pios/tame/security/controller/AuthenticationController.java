@@ -77,10 +77,10 @@ public class AuthenticationController {
         return authenticationService.findUsersThatFollowUser(username);
     }
 
-    @PutMapping("/update/{userId}")
+    @PutMapping("/update/{username}")
     //@Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<UserDTO> update(@Valid @RequestBody final UserCommand userCommand, @PathVariable Long userId){
-        return authenticationService.update(userId, userCommand)
+    public ResponseEntity<UserDTO> update(@Valid @RequestBody final UserCommand userCommand, @PathVariable String username){
+        return authenticationService.update(username, userCommand)
                 .map(userDTO -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(userDTO))
                 .orElseGet(

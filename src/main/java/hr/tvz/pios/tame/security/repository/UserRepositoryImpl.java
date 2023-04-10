@@ -118,7 +118,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> update(Long id, User updatedUser) {
+    public Optional<User> update(String username, User updatedUser) {
+        Long userId;
+        try { userId = findByUsername(username).orElse(null).getId(); }
+        catch(NullPointerException e) { return Optional.empty(); }
+
         int executed = jdbc.update("UPDATE users " +
                         "SET users.username = ?, " +
                         "users.email = ?, " +
@@ -133,7 +137,7 @@ public class UserRepositoryImpl implements UserRepository {
                 updatedUser.getLastname(),
                 updatedUser.getDateOfBirth(),
                 updatedUser.getProfilePicture(),
-                id
+                userId
         );
 
         if(executed > 0){

@@ -10,9 +10,6 @@ public class PostCommand {
     @NotBlank(message = "Post must have text")
     private String text;
 
-    @NotNull(message = "Date od creation is mandatory")
-    private Date creationDate;
-
     @NotBlank(message = "Post must have a maker")
     private String makerUsername;
 
@@ -20,11 +17,7 @@ public class PostCommand {
 
     public void setText(String text) {this.text = text;}
 
-    public Date getCreationDate() {return creationDate;}
+    public String getMakerUsername() {return makerUsername;}
 
-    public void setCreationDate(Date creationDate) {this.creationDate = creationDate;}
-
-    public String getMakerName() {return makerUsername;}
-
-    public void setMakerName(String makerName) {this.makerUsername = makerName;}
+    public void setMakerUsername(String makerName) {this.makerUsername = makerName;}
 }

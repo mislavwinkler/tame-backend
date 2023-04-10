@@ -18,7 +18,6 @@ public class Comment {
 
     private String text;
 
-
     @ManyToOne
     @JoinColumn(name="user_id")
     private User maker;
@@ -39,6 +38,13 @@ public class Comment {
     )
     @BatchSize(size = 20)
     private Set<User> liked = new HashSet<>();
+
+    public Comment(String text, User maker, Post post, Date creationDate) {
+        this.text = text;
+        this.maker = maker;
+        this.post = post;
+        this.creationDate = creationDate;
+    }
 
     public Comment(Long id, String text, User maker, Post post, Date creationDate) {
         this.id = id;

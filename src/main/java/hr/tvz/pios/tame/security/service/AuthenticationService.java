@@ -32,5 +32,5 @@ public interface AuthenticationService {
 
     List<UserDTO> findUserThatLikedPostById(Long id);
 
-    Optional<UserDTO> update(Long id, UserCommand userCommand);
+    Optional<UserDTO> update(String username, UserCommand userCommand);
 }
