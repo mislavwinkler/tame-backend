@@ -28,13 +28,11 @@ public class AuthenticationController {
     }
 
     @GetMapping
-    //@Secured({"ROLE_ADMIN"})
     public List<UserDTO> getAllUsers(){
         return authenticationService.findAll();
     }
 
     @GetMapping("/{username}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<UserDTO> getUserByUsername(@PathVariable final String username){
         return authenticationService.findByUsername(username).map(ResponseEntity::ok).orElseGet(
                 () -> ResponseEntity.notFound().build()
@@ -49,36 +47,30 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{username}")
-    //@Secured({"ROLE_ADMIN"})
     public void delete (@PathVariable String username){authenticationService.delete(username);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{username}/{followingUsername}")
-    //@Secured({"ROLE_USER","ROLE_ADMIN"})
     public void follow (@PathVariable String username, @PathVariable String followingUsername){authenticationService.follow(username, followingUsername);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{username}/{followingUsername}")
-    //@Secured({"ROLE_USER","ROLE_ADMIN"})
     public void unfollow (@PathVariable String username, @PathVariable String followingUsername){authenticationService.unfollow(username, followingUsername);
     }
 
     @GetMapping("/follows/{username}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<UserDTO> getUsersThatUserFollows(@PathVariable final String username){
         return authenticationService.findUsersThatUserFollows(username);
     }
 
     @GetMapping("/following/{username}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<UserDTO> getUsersThatFollowUser(@PathVariable final String username){
         return authenticationService.findUsersThatFollowUser(username);
     }
 
     @PutMapping("/update/{username}")
-    //@Secured({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<UserDTO> update(@Valid @RequestBody final UserCommand userCommand, @PathVariable String username){
         return authenticationService.update(username, userCommand)
                 .map(userDTO -> ResponseEntity.status(HttpStatus.CREATED)
