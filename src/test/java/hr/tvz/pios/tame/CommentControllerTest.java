@@ -21,7 +21,7 @@ public class CommentControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void getAllPost() throws Exception {
+    void getAllComments() throws Exception {
         this.mockMvc.perform(
                         get("/comment")
                                 .with(user("admin")
@@ -39,6 +39,21 @@ public class CommentControllerTest {
     void getCommentsByPostId() throws Exception {
         this.mockMvc.perform(
                         get("/comment/1")
+                                .with(user("admin")
+                                        .password("admin")
+                                        .roles("ADMIN")
+                                )
+                                .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+
+    }
+
+    @Test
+    void getCommentById() throws Exception {
+        this.mockMvc.perform(
+                        get("/comment/id=1")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")

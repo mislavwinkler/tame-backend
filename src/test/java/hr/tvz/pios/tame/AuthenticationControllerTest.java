@@ -15,15 +15,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PostControllerTest {
+public class AuthenticationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void getAllPost() throws Exception {
+    void getAllUsers() throws Exception {
         this.mockMvc.perform(
-                        get("/post")
+                        get("/authentication")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
@@ -36,9 +36,9 @@ public class PostControllerTest {
     }
 
     @Test
-    void getAllPostByMaker() throws Exception {
+    void getUserByUsername() throws Exception {
         this.mockMvc.perform(
-                        get("/post/maker=admin")
+                        get("/authentication/admin")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
@@ -46,61 +46,30 @@ public class PostControllerTest {
                                 .with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-    }
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.username").value("admin"));
 
-    @Test
-    void getAllPostByMakerNone() throws Exception {
-        this.mockMvc.perform(
-                        get("/post/maker=test")
-                                .with(user("admin")
-                                        .password("admin")
-                                        .roles("ADMIN")
-                                )
-                                .with(csrf())
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().string("[]"));
-    }
-    @Test
-    void getPostById() throws Exception {
-        this.mockMvc.perform(
-                        get("/post/1")
-                                .with(user("admin")
-                                        .password("admin")
-                                        .roles("ADMIN")
-                                )
-                                .with(csrf())
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id").value(1));
     }
 
     @Test
     @DirtiesContext
-    void savePost() throws Exception {
-        String requestBody = "{\"text\":\"Test\", \"makerUsername\":\"admin\"}";
+    void login() throws Exception {
+        String requestBody = "{\"username\":\"admin\", \"password\":\"admin\"}";
         this.mockMvc.perform(
-                        post("/post")
-                                .with(user("admin")
-                                        .password("admin")
-                                        .roles("ADMIN")
-                                )
+                        post("/authentication/login")
                                 .with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
     @DirtiesContext
-    void deletePost() throws Exception {
+    void deleteUser() throws Exception {
         this.mockMvc.perform(
-                        delete("/post/1")
+                        delete("/authentication/test")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
@@ -112,9 +81,9 @@ public class PostControllerTest {
 
     @Test
     @DirtiesContext
-    void likePost() throws Exception {
+    void follow() throws Exception {
         this.mockMvc.perform(
-                        put("/post/1/admin")
+                        put("/authentication/test/admin")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
@@ -125,9 +94,23 @@ public class PostControllerTest {
     }
 
     @Test
-    void getAllPostsByFollowedUsers() throws Exception {
+    @DirtiesContext
+    void unfollow() throws Exception {
         this.mockMvc.perform(
-                        get("/post/user=admin")
+                        delete("/authentication/test/admin")
+                                .with(user("admin")
+                                        .password("admin")
+                                        .roles("ADMIN")
+                                )
+                                .with(csrf())
+                )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getUsersThatUserFollows() throws Exception {
+        this.mockMvc.perform(
+                        get("/authentication/follows/admin")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
@@ -136,18 +119,39 @@ public class PostControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+
     }
 
     @Test
-    void getAllUsersThatLikedPost() throws Exception {
+    void getUsersThatFollowUser() throws Exception {
         this.mockMvc.perform(
-                        get("/post/liked/1")
+                        get("/authentication/following/admin")
                                 .with(user("admin")
                                         .password("admin")
                                         .roles("ADMIN")
                                 )
                                 .with(csrf())
                 )
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+
+    }
+
+    @Test
+    @DirtiesContext
+    void updateUser() throws Exception {
+        String requestBody = "{\"username\":\"Test\", \"email\":\"test@tvz.hr\", \"firstname\":\"Ime\", \"lastname\":\"Prezime\", \"dateOfBirth\": null, \"profilePicture\": null}";
+        this.mockMvc.perform(
+                        put("/authentication/update/test")
+                                .with(user("admin")
+                                        .password("admin")
+                                        .roles("ADMIN")
+                                )
+                                .with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestBody)
+                )
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 }

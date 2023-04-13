@@ -1,5 +1,10 @@
+delete from users;
+delete from authority;
+delete from user_has_authority;
 delete from post;
 delete from comment;
+delete from user_is_following;
+delete from post_has_likes;
 
 insert into users(username, password, email, firstname, lastname)
 values
@@ -21,7 +26,8 @@ values
     (2, 2),
     (3, 2),
     (4, 2),
-    (5, 2);
+    (5, 2),
+    (6, 2);
 
 insert into post (text, creation_date, user_id)
 values
