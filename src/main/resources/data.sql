@@ -6,14 +6,14 @@ delete from comment;
 delete from user_is_following;
 delete from post_has_likes;
 
-insert into users(username, password, email, firstname, lastname)
+insert into users(username, password, email, firstname, lastname, profile_picture)
 values
-    ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com', 'Admin', 'Profile'), -- password = admin
-    ('jtovernic', '$2a$10$XFUr05lCQIGrKVfqkEeQPeE1Ckht7WeTdjAvQy0/17wWugO0Qzqca', 'jtovernic@tvz.com', 'Jan', 'Tovernić'), -- password = jan1234
-    ('mblazekovic', '$2a$10$BeYCwXAcb4J4MQVLAlGEWehps3TAiY.yR8HuGIEmsUL4YjJO17Mu2', 'mblazekovic@tvz.com', 'Martin ', 'Blažeković'), -- password = martin123
-    ('lcrepak', '$2a$10$5HjelJMuiXig3Is0CficEOSUCMgNRzRD3crW4Xzx5V1XGQdI596ni', 'lcrepak@tvz.com', 'Lea ', 'Črepak'), -- password = lea123
-    ('mwinkler', '$2a$12$XwLlBuU73fyu9L0pmcFuc.SJClgjCHQ7Ve8lVeNZt4RlHQBN.afku', 'mwinkler@tvz.com', 'Mislav', 'Winkler'), -- password = mislav123
-    ('test', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'test@email.com', 'Test', 'Profile'); -- password = admin
+    ('admin', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'admin@email.com', 'Admin', 'Profile', 'http://localhost:4200/assets/images/avatars/avatarNone.png'), -- password = admin
+    ('jtovernic', '$2a$10$XFUr05lCQIGrKVfqkEeQPeE1Ckht7WeTdjAvQy0/17wWugO0Qzqca', 'jtovernic@tvz.com', 'Jan', 'Tovernić', 'http://localhost:4200/assets/images/avatars/avatarSeven.png'), -- password = jan1234
+    ('mblazekovic', '$2a$10$BeYCwXAcb4J4MQVLAlGEWehps3TAiY.yR8HuGIEmsUL4YjJO17Mu2', 'mblazekovic@tvz.com', 'Martin ', 'Blažeković', 'http://localhost:4200/assets/images/avatars/avatarThree.png'), -- password = martin123
+    ('lcrepak', '$2a$10$5HjelJMuiXig3Is0CficEOSUCMgNRzRD3crW4Xzx5V1XGQdI596ni', 'lcrepak@tvz.com', 'Lea ', 'Črepak', 'http://localhost:4200/assets/images/avatars/avatarFive.png'), -- password = lea123
+    ('mwinkler', '$2a$12$XwLlBuU73fyu9L0pmcFuc.SJClgjCHQ7Ve8lVeNZt4RlHQBN.afku', 'mwinkler@tvz.com', 'Mislav', 'Winkler', 'http://localhost:4200/assets/images/avatars/avatarNine.png'), -- password = mislav123
+    ('test', '$2a$12$INo0nbj40sQrTB7b28KJput/bNltGmFyCfRsUhvy73qcXo5/XdsTG', 'test@email.com', 'Test', 'Profile', 'http://localhost:4200/assets/images/avatars/avatarSix.png'); -- password = admin
 
 insert into authority (id, authority_name)
 values
